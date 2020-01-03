@@ -44,7 +44,7 @@ ENV JAVA_HOME /etc/alternatives/jre
 
 
 # Use /dev/urandom to speed up startups & Add jboss user to the root group
-RUN echo securerandom.source=file:/dev/urandom >> /usr/lib/jvm/java/jre/lib/security/java.security \
+RUN echo securerandom.source=file:/dev/urandom >> /etc/alternatives/jre/lib/security/java.security \
  && usermod -g root -G jboss jboss
 
 # Prometheus JMX exporter agent
