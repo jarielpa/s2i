@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi7/ubi-minimal
+FROM registry.access.redhat.com/ubi7/ubi-minimal:7.7-98
 
 ARG EXPOSE_PORT=8080
 EXPOSE ${EXPOSE_PORT}
