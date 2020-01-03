@@ -2,6 +2,8 @@ FROM alpine:3.10
 
 USER root
 
+ENV HOME=/opt/app-root
+
 RUN mkdir -p /deployments
 
 # JAVA_APP_DIR is used by run-java.sh for finding the binaries
@@ -31,7 +33,13 @@ EXPOSE 8778 9779
 COPY run-java.sh /deployments/
 RUN chmod 755 /deployments/run-java.sh
 
+# Add user
+RUN  mkdir -p ${HOME} \
+&& adduser -s /bin/sh -u 1001 -G root -h ${HOME} -S -D default \
+&& chown -R 1001:0 ${HOME}
 
+USER 1001
 
+WORKDIR ${HOME}
 
 CMD [ "/deployments/run-java.sh" ]
