@@ -30,12 +30,8 @@ USER root
 
 
 
-# Install Java package & download Maven from Apache
+# Install Java package 
 RUN microdnf install --nodocs java-1.8.0-openjdk-headless && microdnf clean all \
-  && curl https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz | \
-    tar -xzf - -C /opt \
-  && ln -s /opt/apache-maven-3.5.4 /opt/maven \
-  && ln -s /opt/maven/bin/mvn /usr/bin/mvn \
   && groupadd -r jboss -g 1000 \
   && useradd -u 1000 -r -g jboss -m -d /opt/jboss -s /sbin/nologin -c "JBoss user" jboss \
   && chmod 755 /opt/jboss
@@ -110,8 +106,6 @@ WORKDIR /opt/jboss
 # S2I requires a numeric, non-0 UID. This is the UID for the jboss user in the base image
 
 USER 1000
-RUN mkdir -p /opt/jboss/.m2
-COPY settings.xml /opt/jboss/.m2/settings.xml
 
 
 # Use the run script as default since we are working as an hybrid image which can be
