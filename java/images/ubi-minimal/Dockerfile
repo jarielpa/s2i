@@ -45,7 +45,7 @@ RUN echo securerandom.source=file:/dev/urandom >> /etc/alternatives/jre/lib/secu
 
 # Prometheus JMX exporter agent
  RUN mkdir -p /opt/prometheus/etc \
-  && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.3.1/jmx_prometheus_javaagent-0.3.1.jar \
+  && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.12.0/jmx_prometheus_javaagent-0.12.0.jar \
           -o /opt/prometheus/jmx_prometheus_javaagent.jar
  ADD prometheus-opts /opt/prometheus/prometheus-opts
  ADD prometheus-config.yml /opt/prometheus/prometheus-config.yml
