@@ -4,7 +4,7 @@ ARG EXPOSE_PORT=8080
 EXPOSE ${EXPOSE_PORT}
 
 ENV JOLOKIA_VERSION="1.6.2" \
-    PROMETHEUS_JMX_EXPORTER_VERSION="0.12.0" \
+    PROMETHEUS_JMX_EXPORTER_VERSION="0.13.0" \
     PATH=$PATH:"/usr/local/s2i" \
     AB_JOLOKIA_PASSWORD_RANDOM="true" \
     AB_JOLOKIA_AUTH_OPENSHIFT="true" \
@@ -12,9 +12,9 @@ ENV JOLOKIA_VERSION="1.6.2" \
     JAVA_DATA_DIR="/deployments/data"
 
 # Some version information
-LABEL io.fabric8.s2i.version.maven="3.5.4" \
+LABEL io.fabric8.s2i.version.maven="3.6.3" \
       io.fabric8.s2i.version.jolokia="1.6.2" \
-      io.fabric8.s2i.version.prometheus.jmx_exporter="0.12.0" \
+      io.fabric8.s2i.version.prometheus.jmx_exporter="0.13.0" \
       io.k8s.description="Platform for building and running plain Java applications (fat-jar and flat classpath)" \
       io.k8s.display-name="Java Applications" \
       io.openshift.tags="builder,java" \
@@ -37,9 +37,9 @@ RUN yum -y update \
        java-1.8.0-openjdk \
        java-1.8.0-openjdk-devel \
   && yum clean all \
-  && curl https://archive.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz | \
+  && curl https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz | \
     tar -xzf - -C /opt \
-  && ln -s /opt/apache-maven-3.5.4 /opt/maven \
+  && ln -s /opt/apache-maven-3.6.3 /opt/maven \
   && ln -s /opt/maven/bin/mvn /usr/bin/mvn \
   && groupadd -r jboss -g 1000 \
   && useradd -u 1000 -r -g jboss -m -d /opt/jboss -s /sbin/nologin -c "JBoss user" jboss \
@@ -54,7 +54,7 @@ RUN echo securerandom.source=file:/dev/urandom >> /usr/lib/jvm/java/jre/lib/secu
 
 # Prometheus JMX exporter agent
  RUN mkdir -p /opt/prometheus/etc \
-  && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.12.0/jmx_prometheus_javaagent-0.12.0.jar \
+  && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.13.0/jmx_prometheus_javaagent-0.13.0.jar \
           -o /opt/prometheus/jmx_prometheus_javaagent.jar
  ADD prometheus-opts /opt/prometheus/prometheus-opts
  ADD prometheus-config.yml /opt/prometheus/prometheus-config.yml
