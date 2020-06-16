@@ -15,14 +15,14 @@ ENV JAVA_APP_DIR=/deployments \
 # according to http://www.2uo.de/myths-about-urandom/
 RUN apk add --update \
     curl \
-    openjdk8-jre=8.222.10-r0 \
+    openjdk8-jre=8.242.08-r0 \
  && rm /var/cache/apk/* \
  && echo "securerandom.source=file:/dev/urandom" >> /usr/lib/jvm/default-jvm/jre/lib/security/java.security
 
 # Agent bond including Jolokia and jmx_exporter
 ADD agent-bond-opts /opt/run-java-options
 RUN mkdir -p /opt/agent-bond \
- && curl http://central.maven.org/maven2/io/fabric8/agent-bond-agent/1.2.0/agent-bond-agent-1.2.0.jar \
+ && curl https://repo1.maven.org/maven2/io/fabric8/agent-bond-agent/1.2.0/agent-bond-agent-1.2.0.jar \
           -o /opt/agent-bond/agent-bond.jar \
  && chmod 444 /opt/agent-bond/agent-bond.jar \
  && chmod 755 /opt/run-java-options
